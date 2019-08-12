@@ -9,10 +9,11 @@ class Article extends Component{
         return(
             <div>
                 <h5>{this.props.title}</h5>
-                <p> {this.props.description}</p>
-                <img src={this.props.source.urlToImage}/>
-
-                
+                <p className='time'>{this.props.publishedAt}</p>
+                <h6> {this.props.description}</h6>
+                <p>{this.props.content}</p>
+                <img src={this.props.urlToImage}/>
+   
             </div>
         )
     }

@@ -24,7 +24,20 @@ form{
   margin-left: 1em;
 }
 
-img{
+h6{
+  font-style: italic;
+  color:lightslategray;
+}
+
+h5{
+  margin-top: 2em;
+}
+
+.time{
+  font-size: .8em;
+}
+
+/* img{
   width: 20em;
   height: 20em;
-}
+} */

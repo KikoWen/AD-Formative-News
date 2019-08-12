@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Article from './article.jsx'
+import Article from './Article.jsx'
 import Tab from 'react-bootstrap/Tab';
 import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
@@ -19,7 +19,8 @@ class App extends Component{
       sportsArticles:[],
       businessArticles:[],
       politicsArticles:[],
-      technologyArticles:[]
+      technologyArticles:[],
+      othersArticles:[]
     }
   }
 
@@ -52,8 +53,14 @@ class App extends Component{
     this.loadHeadlinesByCategory('business');
     this.loadHeadlinesByCategory('sports');
     this.loadHeadlinesByCategory('politics');
-    this.loadHeadlinesByCategory('technology')
+    this.loadHeadlinesByCategory('technology');
+    this.loadHeadlinesByCategory('others')
   
+  }
+
+  handleSearchSubmitClick=(e)=>{
+    e.preventDefault();
+
   }
 
 
@@ -76,13 +83,16 @@ class App extends Component{
             <Nav.Item>
               <Nav.Link eventKey="technology" >Technology</Nav.Link>
             </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="others" >Others</Nav.Link>
+            </Nav.Item>
           </Nav>
 
           <Form>
             <Form.Group controlId="formBasicPassword">
               <Form.Control type="text" placeholder="Enter keywords" />
             </Form.Group>
-            <Button variant="primary" type="submit" className='search'>
+            <Button variant="primary" type="submit" className='search' onClick ={this.handleSearchSubmitClick}>
               Search
             </Button>
           </Form>
@@ -130,6 +140,19 @@ class App extends Component{
             <Tab.Pane eventKey="technology">
                 {
                 this.state.technologyArticles.map((article)=>{
+                  
+                  var articleProps = {
+                    ...article,
+                  };
+                  return <Article {...articleProps} />;
+                })
+                }
+             
+            </Tab.Pane>
+
+            <Tab.Pane eventKey="others">
+                {
+                this.state.othersArticles.map((article)=>{
                   
                   var articleProps = {
                     ...article,
