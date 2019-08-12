@@ -16,10 +16,12 @@ class App extends Component{
   constructor(props){
     super(props);
     this.state ={
+      activeKey:'business',
       sportsArticles:[],
       businessArticles:[],
       politicsArticles:[],
       technologyArticles:[],
+      keywordInput:'',
       othersArticles:[]
     }
   }
@@ -49,6 +51,7 @@ class App extends Component{
 
   }
 
+
   componentDidMount(){
     this.loadHeadlinesByCategory('business');
     this.loadHeadlinesByCategory('sports');
@@ -58,8 +61,37 @@ class App extends Component{
   
   }
 
+  loadHeadlinesByTerm = (term) => {
+    var articlesURL = 'https://newsapi.org/v2/top-headlines'+key+'&q='+term;
+
+    fetch(articlesURL)
+    .then(res => res.json())
+    .then((data)=>{
+        var articles = data.articles;
+        this.setState({othersArticles:data.articles})
+
+    })
+
+}
+
   handleSearchSubmitClick=(e)=>{
     e.preventDefault();
+    var keywordInput = this.state.keywordInput;
+    this.loadHeadlinesByTerm(keywordInput);
+    this.setState({activeKey:'others'})
+
+
+  }
+
+  handleKeywordInputChange = (e) =>{
+    this.setState({keywordInput:e.target.value})
+    
+
+  }
+
+  handleTabSelect = (key,e) =>{
+    this.setState({activeKey:key})
+    
 
   }
 
@@ -67,7 +99,7 @@ class App extends Component{
   render(){
     return(
       <div className="container">
-        <Tab.Container id="left-tabs-example" defaultActiveKey="business">
+        <Tab.Container id="left-tabs-example" activeKey={this.state.activeKey} onSelect={this.handleTabSelect}>
   
         <div className="nav-container">
           <Nav fill variant="tabs" defaultActiveKey="/home">
@@ -90,7 +122,7 @@ class App extends Component{
 
           <Form>
             <Form.Group controlId="formBasicPassword">
-              <Form.Control type="text" placeholder="Enter keywords" />
+              <Form.Control type="text" onChange={this.handleKeywordInputChange} placeholder="Enter keywords" />
             </Form.Group>
             <Button variant="primary" type="submit" className='search' onClick ={this.handleSearchSubmitClick}>
               Search
