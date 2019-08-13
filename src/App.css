@@ -37,7 +37,17 @@ h5{
   font-size: .8em;
 }
 
-/* img{
-  width: 20em;
-  height: 20em;
+/* .news-container{
+  flex: 0 0 42vw;
+
 } */
+
+/* .tab-pane{
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: space-between;
+} */
+
+img{
+  width: 35vw;
+}

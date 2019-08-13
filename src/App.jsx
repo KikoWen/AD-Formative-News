@@ -4,9 +4,6 @@ import Tab from 'react-bootstrap/Tab';
 import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-
-
-
 import './App.css';
 
 var keyCode = '757451de38ab48efb701b070446de0ad';
@@ -28,29 +25,28 @@ class App extends Component{
 
   loadHeadlinesByCategory = (category) =>{
 
-    var articlesURL = 'https://newsapi.org/v2/top-headlines'+key+'&country=nz' + '&category=' + category; 
+    var articlesURL = 'https://newsapi.org/v2/top-headlines'+ key +'&country=nz' + '&category=' + category; 
     fetch(articlesURL)
     .then(res => res.json())
 
     .then((data) =>{
-      if(category == 'sports'){
+      if(category === 'sports'){
         this.setState({sportsArticles:data.articles});
       }
-      if(category == 'business'){
+      if(category === 'business'){
         this.setState({businessArticles:data.articles});
       }
-      if(category == 'politics'){
+      if(category === 'politics'){
         this.setState({politicsArticles:data.articles});
       }
 
-      if(category == 'technology'){
+      if(category === 'technology'){
         this.setState({technologyArticles:data.articles})
       }
       
     })
 
   }
-
 
   componentDidMount(){
     this.loadHeadlinesByCategory('business');
@@ -68,7 +64,7 @@ class App extends Component{
     .then(res => res.json())
     .then((data)=>{
         var articles = data.articles;
-        this.setState({othersArticles:data.articles})
+        this.setState({othersArticles:articles})
 
     })
 
@@ -79,20 +75,16 @@ class App extends Component{
     var keywordInput = this.state.keywordInput;
     this.loadHeadlinesByTerm(keywordInput);
     this.setState({activeKey:'others'})
-
-
   }
 
   handleKeywordInputChange = (e) =>{
     this.setState({keywordInput:e.target.value})
-    
 
   }
 
   handleTabSelect = (key,e) =>{
     this.setState({activeKey:key})
     
-
   }
 
 
